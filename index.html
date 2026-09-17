@@ -69,6 +69,21 @@
             cursor: not-allowed;
             opacity: 0.5;
         }
+
+        .save-area {
+            margin: 30px;
+        }
+
+        .save-area button {
+            padding: 12px 25px;
+            margin: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #message {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -83,6 +98,24 @@
         Cookies per click: 1<br>
         Cookies per second: 0
     </p>
+
+    <!--===================-->>
+    <!--SAVE/LOAD-->
+    <!--===================-->>
+
+    <div class="save-area">
+
+        <button id="saveButton">
+            💾 Save Game
+        </button>
+        
+        <button id="loadButton">
+            📁 Load Game
+        </button>
+        
+        <p id="message"></p>
+
+    </div>
 
     <br>
 
