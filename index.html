@@ -96,7 +96,8 @@
 
     <p id="stats">
         Cookies per click: 1<br>
-        Cookies per second: 0
+        Cookies per second: 0x
+    <p id="lifetimeStats"></p>
     </p>
 
     <!--===================-->
@@ -220,9 +221,15 @@
         //GAME VARIABLES
         //--------------------
 
+        let totalCookies = 0;
+        let totalClicks = 0;
+
+
         let cookies = 0;
 
         let cookiesPerClick = 1;
+
+        let achievements = [];
 
         //CPS buildings
 
@@ -308,7 +315,9 @@
 
         cookieButton.addEventListener("click", function () {
 
-            cookies += cookiesPerClick;
+            cookies += cookiesPerClick
+            totalCookies += cookiesPerClick;
+            totalClicks++;
 
             updateScreen();
 
@@ -333,7 +342,7 @@
         });
 
         // ======================================== 
-        // COOKIE CLICKING 
+        // GRANDMA
         // ========================================
 
         grandmaButton.addEventListener("click", function () {
@@ -490,9 +499,37 @@
                 banks * 100;
 
             cookies += cookiesPerSecond;
+            totalCookies += cookiesPerSecond;
 
             updateScreen();
         }, 1000);
+
+        // ======================================== 
+        // ACHIEVEMENTS
+        // ========================================
+
+        function checkAchievements() {
+
+            if (totalCookies >= 100 && !achievements.includes("100")) {
+                achievements.push("100");
+                alert("🏆 Achievement: 100 cookies!");
+            }
+
+            if (totalClicks >= 1000 && !achievements.includes("1000")) {
+                achievements.push("1000");
+                alert("🏆 Achievement: 1,000 cookies!");
+            }
+
+            if (cursors >= 10 && !achievements.includes("Cursors10")) {
+                achievements.push("Cursors10");
+                alert("🏆 Achievement: 10 Cursors!");
+            }   
+
+            if (bank >= 1 && !achievements.includes("Bank1")) {
+                achievements.push("Bank1");
+                alert("🏆 Achievement: First Bank!");
+            }
+        }
 
         // ======================================== 
         // SAVE GAME
@@ -525,6 +562,10 @@
                 strongerClickCost: strongerClickCost,
                 goldenClickCost: goldenClickCost,
                 megaClickCost: megaClickCost
+
+                totalCookies: totalCookies,
+                totalClicks: totalClicks,
+                achievements: achievements
             };
 
             localStorage.setItem(
@@ -604,6 +645,15 @@
                 megaClickCost =
                     gameData.megaClickCost;
 
+                totalCookies =
+                    gameData.totalCookies || 0;
+
+                totalClicks =
+                    gameData.totalClicks || 0;
+
+                achievements =
+                    gameData.achievements || [];
+
                 updateScreen();
 
                 message.textContent =
@@ -620,6 +670,10 @@
         // ========================================
 
         function updateScreen() {
+
+            document.getElementById("lifetimeStats").innerHTML =
+                "Total cookies: " + Math.floor(totalCookies) +
+                "<br>Total clicks: " + totalClicks;
 
             let cookiesPerSecond =
                 cursors +
