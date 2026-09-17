@@ -601,7 +601,9 @@
                 "Cookies per second: " +
                 cookiesPerSecond;
 
-            //Cursor
+            // -------------------------------- 
+            // CPS BUILDINGS 
+            // --------------------------------
 
             document.getElementById("cursorOwned")
                 .textContent = cursors;
@@ -611,8 +613,6 @@
                 cursorCost +
                 " cookies";
 
-            //Grandma
-
             document.getElementById("grandmaOwned")
                 .textContent = grandmas;
 
@@ -620,8 +620,6 @@
                 "Buy — " +
                 grandmaCost +
                 " cookies";
-
-            //Factory
 
             document.getElementById("factoryOwned")
                 .textContent = factories;
@@ -631,17 +629,53 @@
                 factoryCost +
                 " cookies";
 
-            //Click upgrade
-
-            document.getElementById("clickUpgradeLevel")
-                .textContent = clickUpgradeLevel;
-
-            clickUpgradeButton.textContent =
+            document.getElementById("bankOwned")
+                .textContent = banks;
+            
+            bankButton.textContent =
                 "Buy — " +
-                clickUpgradeCost +
+                bankCost +
                 " cookies";
 
-            //Disable buttons if we can't afford them
+            // -------------------------------- 
+            // CPC UPGRADES
+            // --------------------------------
+
+            document.getElementById("BetterClickLevel")
+                .textContent = betterClickLevel;
+
+            betterClickButton.textContent =
+                "Buy — " +
+                betterClickCost +
+                " cookies";
+
+            document.getElementById("strongerClickLevel")
+                .textContent = strongerClickLevel;
+            
+            strongerClickButton.textContent =
+                "Buy — " +
+                strongerClickCost +
+                " cookies";
+
+            document.getElementById("goldenClickLevel")
+                .textContent = goldenClickLevel;
+
+            goldenClickButton.textContent =
+                "Buy — " +
+                goldenClickCost +
+                " cookies";
+            
+            document.getElementById("megaClickLevel")
+                .textContent = megaClickLevel;
+
+            megaClickButton.textContent =
+                "Buy — " +
+                megaClickCost +
+                " cookies";
+
+            // -------------------------------- 
+            // DISABLE UNAFORDABLE BUTTONS 
+            // --------------------------------
 
             cursorButton.disabled =
                 cookies < cursorCost;
@@ -653,13 +687,24 @@
                 cookies < factoryCost;
 
             bankButton.disabled =
-                cookies < bankCost
+                cookies < bankCost;
 
-            clickUpgradeButton.disabled =
-                cookies < clickUpgradeCost;
+            betterClickButton.disabled =
+                cookies < betterClickCost;
+            
+            strongerClickButton.disabled =
+                cookies < strongerClickCost;
+            
+            goldenClickButton.disabled =
+                cookies < goldenClickCost;
+
+            megaClickButton.disabled =
+                cookies < megaClickCost;
 
         }
-
+        // -------------------------------- 
+        // START GAME
+        // --------------------------------
         updateScreen();
 
     </script>
