@@ -517,15 +517,15 @@
 
             if (totalClicks >= 1000 && !achievements.includes("1000")) {
                 achievements.push("1000");
-                alert("🏆 Achievement: 1,000 cookies!");
+                alert("🏆 Achievement: 1,000 clicks!");
             }
 
-            if (cursors >= 10 && !achievements.includes("Cursors10")) {
-                achievements.push("Cursors10");
+            if (cursors >= 10 && !achievements.includes("Cursor10")) {
+                achievements.push("Cursor10");
                 alert("🏆 Achievement: 10 Cursors!");
             }   
 
-            if (bank >= 1 && !achievements.includes("Bank1")) {
+            if (banks >= 1 && !achievements.includes("Bank1")) {
                 achievements.push("Bank1");
                 alert("🏆 Achievement: First Bank!");
             }
@@ -790,6 +790,12 @@
 
             megaClickButton.disabled =
                 cookies < megaClickCost;
+
+            // -------------------------------- 
+            // CHECK ACHIEVEMENTS
+            // --------------------------------
+
+            checkAchievements();
 
         }
         // -------------------------------- 
