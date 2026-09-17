@@ -108,11 +108,11 @@
         <button id="saveButton">
             💾 Save Game
         </button>
-        
+
         <button id="loadButton">
             📁 Load Game
         </button>
-        
+
         <p id="message"></p>
 
     </div>
@@ -146,7 +146,7 @@
         </div>
 
         <!-- FACTORY -->
-        
+
         <div class="shop-item">
             <h2>🏭 Factory</h2>
             <p>Automatically makes 25 cookies per second.</p>
@@ -210,7 +210,7 @@
                 Buy - 10000 cookies
             </button>
         </div>
-        
+
 
     </div>
 
@@ -262,8 +262,8 @@
 
         const stats =
             document.getElementById("stats");
-        
-        const message = 
+
+        const message =
             document.getElementById("message");
 
         //CPS buttons
@@ -527,12 +527,12 @@
             };
 
             localStorage.setItem(
-                "cookieGameSave", 
+                "cookieGameSave",
                 JSON.stringify(gameData)
             );
 
-            message.textContent = 
-            "✅ Game saved!";
+            message.textContent =
+                "✅ Game saved!";
         });
 
         // ======================================== 
@@ -541,66 +541,66 @@
 
         loadButton.addEventListener("click", function () {
 
-            const savedData = 
+            const savedData =
                 localStorage.getItem("cookieGameSave");
 
             if (savedData) {
 
-                const gameData = 
+                const gameData =
                     JSON.parse(savedData);
 
-                cookies = 
+                cookies =
                     gameData.cookies;
 
-                cookiesPerClick = 
+                cookiesPerClick =
                     gameData.cookiesPerClick;
 
-                cursors = 
+                cursors =
                     gameData.cursors;
 
-                grandmas = 
+                grandmas =
                     gameData.grandmas;
 
-                factories = 
+                factories =
                     gameData.factories;
 
-                banks = 
+                banks =
                     gameData.banks;
 
-                cursorCost = 
+                cursorCost =
                     gameData.cursorCost;
 
-                grandmaCost = 
+                grandmaCost =
                     gameData.grandmaCost;
 
-                factoryCost = 
+                factoryCost =
                     gameData.factoryCost;
 
-                bankCost = 
+                bankCost =
                     gameData.bankCost;
 
-                betterClickLevel = 
+                betterClickLevel =
                     gameData.betterClickLevel;
 
-                strongerClickLevel = 
+                strongerClickLevel =
                     gameData.strongerClickLevel;
 
-                goldenClickLevel = 
+                goldenClickLevel =
                     gameData.goldenClickLevel;
 
-                megaClickLevel = 
+                megaClickLevel =
                     gameData.megaClickLevel;
 
-                betterClickCost = 
+                betterClickCost =
                     gameData.betterClickCost;
 
-                strongerClickCost = 
+                strongerClickCost =
                     gameData.strongerClickCost;
 
-                goldenClickCost = 
+                goldenClickCost =
                     gameData.goldenClickCost;
 
-                megaClickCost = 
+                megaClickCost =
                     gameData.megaClickCost;
 
                 updateScreen();
@@ -665,7 +665,7 @@
 
             document.getElementById("bankOwned")
                 .textContent = banks;
-            
+
             bankButton.textContent =
                 "Buy — " +
                 bankCost +
@@ -675,7 +675,7 @@
             // CPC UPGRADES
             // --------------------------------
 
-            document.getElementById("BetterClickLevel")
+            document.getElementById("betterClickLevel")
                 .textContent = betterClickLevel;
 
             betterClickButton.textContent =
@@ -685,7 +685,7 @@
 
             document.getElementById("strongerClickLevel")
                 .textContent = strongerClickLevel;
-            
+
             strongerClickButton.textContent =
                 "Buy — " +
                 strongerClickCost +
@@ -698,7 +698,7 @@
                 "Buy — " +
                 goldenClickCost +
                 " cookies";
-            
+
             document.getElementById("megaClickLevel")
                 .textContent = megaClickLevel;
 
@@ -725,10 +725,10 @@
 
             betterClickButton.disabled =
                 cookies < betterClickCost;
-            
+
             strongerClickButton.disabled =
                 cookies < strongerClickCost;
-            
+
             goldenClickButton.disabled =
                 cookies < goldenClickCost;
 
