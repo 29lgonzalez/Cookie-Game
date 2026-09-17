@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,14 +42,130 @@
             font-weight: bold;
         }
 
-        button.upgrade {
-            padding: 12px 12px;
-            font-size: 18px;
+        .shop {
+            margin: 30px auto;
+            max-width: 500px;
+        }
+
+        .shop-item {
+            background: white;
+            border: 2px solid #6b3e26;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+        }
+
+        .shop-item h2 {
+            margin: 2px;
+        }
+
+        .shop-item button {
+            padding: 10px 15px;
+            font-size: 16px;
             cursor: pointer;
-            margin-top: 20px;
+        }
+
+        .shop-item button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
         }
     </style>
 </head>
+
 <body>
-    
+    <h1>🍪 My Cookie Game 🍪</h1>
+
+    <div id="count">0 cookies</div>
+
+    <button id="cookie">🍪</button>
+
+    <p id="stats">
+        Cookies per click: 1<br>
+        Cookies per second: 0
+    </p>
+
+    <br>
+
+    <div class="shop">
+
+        <h2>🛒 Shop 🛒</h2>
+
+        <div class="shop-item">
+            <h2>🖱️ Cursor</h2>
+            <p>Automatically makes 1 cookie per second.</p>
+            <p>Owned: <span id="cursorOwned">0</span></p>
+            <button id="cursorButton">
+                Buy - 10 cookies
+            </button>
+        </div>
+
+        <div class="shop-item">
+            <h2>👵 Grandma</h2>
+            <p>Automatically makes 5 cookies per second.</p>
+            <p>Owned: <span id="grandmaOwned">0</span></p>
+            <button id="grandmaButton">
+                Buy - 50 cookies
+            </button>
+        </div>
+
+        <div class="shop-item">
+            <h2>🏭 Factory</h2>
+            <p>Automatically makes 25 cookies per second.</p>
+            <p>Owned: <span id="factoryOwned">0</span></p>
+            <button id="factoryButton">
+                Buy - 250 cookies
+            </button>
+        </div>
+
+        <div class="shop-item">
+            <h2>✨ Better Clicking</h2>
+            <p>Gives you +1 cookie every time you click.</p>
+            <p>Level: <span id="clickUpgradeLevel">0</span></p>
+            <button id="clickUpgradeButton">
+                Buy - 100 cookies
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let cookies = 0;
+        let cookiesPerClick = 1;
+        let cursorCost = 15;
+        let cursors = 0;
+
+        const cookieButton = document.getElementById("cookie");
+        const countDisplay = document.getElementById("count");
+        const upgradeButton = document.getElementById("upgrade");
+        const info = document.getElementById("info");
+
+        cookieButton.addEventListener("click", function () {
+            cookies += cookiesPerClick;
+            updateScreen();
+        });
+
+        upgradeButton.addEventListener("click", function () {
+
+            if (cookies >= cursorCost) {
+                cookies -= cursorCost;
+                cursors++;
+
+                updateScreen();
+            }
+
+        });
+
+        setInterval(function () {
+            cookies += cursors;
+            updateScreen();
+        }, 1000)
+
+        function updateScreen() {
+            countDisplay.textContent = cookies + " cookies";
+
+            upgradeButton.textContent = "Buy Cursor - " + cursorCost + " cookies"
+
+            info.textContent =
+                "Cookies per click " + cookiesPerClick + " | Cursors: " + cursors;
+        }
+    </script>
 </body>
