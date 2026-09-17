@@ -129,43 +129,186 @@
 
     <script>
         let cookies = 0;
-        let cookiesPerClick = 1;
-        let cursorCost = 15;
-        let cursors = 0;
 
-        const cookieButton = document.getElementById("cookie");
-        const countDisplay = document.getElementById("count");
-        const upgradeButton = document.getElementById("upgrade");
-        const info = document.getElementById("info");
+        let cookiesPerClick = 1;
+
+        let cursors = 0;
+        let grandmas = 0;
+        let factories = 0;
+
+        let cursorCost = 10;
+        let grandmaCost = 50;
+        let factoryCost = 250;
+
+        let clickUpgradeLevel = 0;
+        let clickUpgradeCost = 100;
+
+        const cookieButton =
+            document.getElementById("cookie");
+
+        const countDisplay =
+            document.getElementById("count");
+
+        const stats =
+            document.getElementById("stats");
+
+        const cursorButton =
+            document.getElementById("cursorButton");
+
+        const grandmaButton =
+            document.getElementById("grandmaButton");
+
+        const factoryButton =
+            document.getElementById("factoryButton");
+
+        const clickUpgradeButton =
+            document.getElementById("clickUpgradeButton");
 
         cookieButton.addEventListener("click", function () {
+
             cookies += cookiesPerClick;
+
             updateScreen();
+
         });
 
-        upgradeButton.addEventListener("click", function () {
+        cursorButton.addEventListener("click", function () {
 
             if (cookies >= cursorCost) {
+
                 cookies -= cursorCost;
+
                 cursors++;
+
+                // Make the next cursor more expensive 
+
+                cursorCost = Math.floor(cursorCost * 1.15);
+
+                updateScreen();
+            }
+        });
+
+        grandmaButton.addEventListener("click", function () {
+
+            if (cookies >= grandmaCost) {
+
+                cookies -= grandmaCost;
+
+                grandmas++;
+
+                grandmaCost = Math.floor(grandmaCost * 1.15);
+
+                updateScreen();
+            }
+        });
+
+        factoryButton.addEventListener("click", function () {
+
+            if (cookies >= factoryCost) {
+
+                cookies -= factoryCost;
+
+                factories++;
+
+                factoryCost = Math.floor(factoryCost * 1.15);
 
                 updateScreen();
             }
 
         });
 
+        clickUpgradeButton.addEventListener("click", function () {
+
+            if (cookies >= clickUpgradeCost) {
+
+                cookies -= clickUpgradeCost;
+
+                clickUpgradeLevel++;
+
+                cookiesPerClick++;
+
+                clickUpgradeCost = Math.floor(clickUpgradeCost * 2);
+
+                updateScreen();
+            }
+        });
+
         setInterval(function () {
-            cookies += cursors;
+
+            let cookiesPerSecond =
+                cursors +
+                grandmas * 5 +
+                factories * 25;
+
+            cookies += cookiesPerSecond;
+
             updateScreen();
-        }, 1000)
+        }, 1000);
 
         function updateScreen() {
-            countDisplay.textContent = cookies + " cookies";
 
-            upgradeButton.textContent = "Buy Cursor - " + cursorCost + " cookies"
+            let cookiesPerSecond =
+                cursors +
+                grandmas * 5 +
+                factories * 25;
 
-            info.textContent =
-                "Cookies per click " + cookiesPerClick + " | Cursors: " + cursors;
+            countDisplay.textContent =
+                Math.floor(cookies) + " cookies";
+
+            stats.innerHTML =
+                "Cookies per click: " +
+                cookiesPerClick +
+                "<br>" +
+                "Cookies per second: " +
+                cookiesPerSecond;
+
+            document.getElementById("cursorOwned")
+                .textContent = cursors;
+
+            cursorButton.textContent =
+                "Buy — " +
+                cursorCost +
+                " cookies";
+
+            document.getElementById("grandmaOwned")
+                .textContent = grandmas;
+
+            grandmaButton.textContent =
+                "Buy — " +
+                grandmaCost +
+                " cookies";
+
+            document.getElementById("factoryOwned")
+                .textContent = factories;
+
+            factoryButton.textContent =
+                "Buy — " +
+                factoryCost +
+                " cookies";
+
+            document.getElementById("clickUpgradeLevel")
+                .textContent = clickUpgradeLevel;
+
+            clickUpgradeButton.textContent =
+                "Buy — " +
+                clickUpgradeCost +
+                " cookies";
+
+            cursorButton.disabled =
+                cookies < cursorCost;
+
+            grandmaButton.disabled =
+                cookies < grandmaCost;
+
+            factoryButton.disabled =
+                cookies < factoryCost;
+
+            clickUpgradeButton.disabled =
+                cookies < clickUpgradeCost;
+
         }
+
+        updateScreen();
+
     </script>
 </body>
