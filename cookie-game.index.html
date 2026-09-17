@@ -90,6 +90,8 @@
 
         <h2>🛒 Shop 🛒</h2>
 
+        <!-- CURSOR -->
+
         <div class="shop-item">
             <h2>🖱️ Cursor</h2>
             <p>Automatically makes 1 cookie per second.</p>
@@ -98,6 +100,8 @@
                 Buy - 10 cookies
             </button>
         </div>
+
+        <!-- GRANDMA -->
 
         <div class="shop-item">
             <h2>👵 Grandma</h2>
@@ -108,6 +112,8 @@
             </button>
         </div>
 
+        <!-- FACTORY -->
+        
         <div class="shop-item">
             <h2>🏭 Factory</h2>
             <p>Automatically makes 25 cookies per second.</p>
@@ -117,31 +123,102 @@
             </button>
         </div>
 
+        <!-- BANK -->
+
+        <div class="shop-item">
+            <h2>🏦 Bank</h2>
+            <p>Gives you 100 cookies per click.</p>
+            <p>Owned: <span id="bankOwned">0</span></p>
+            <button id="bankButton">
+                Buy - 1000 cookies
+            </button>
+        </div>
+
+        <!-- BETTER CLICKING -->
+
         <div class="shop-item">
             <h2>✨ Better Clicking</h2>
             <p>Gives you +1 cookie every time you click.</p>
-            <p>Level: <span id="clickUpgradeLevel">0</span></p>
-            <button id="clickUpgradeButton">
+            <p>Level: <span id="betterClickLevel">0</span></p>
+            <button id="betterClickButton">
                 Buy - 100 cookies
             </button>
         </div>
+
+        <!-- STRONGER CLICKING -->
+
+        <div class="shop-item">
+            <h2>💪 Stronger Clicking</h2>
+            <p>Gives you +5 cookies every time you click.</p>
+            <p>Level: <span id="strongerClickLevel">0</span></p>
+            <button id="strongerClickButton">
+                Buy - 500 cookies
+            </button>
+        </div>
+
+        <!-- GOLDEN CLICK -->
+
+        <div class="shop-item">
+            <h2>🌟 Golden Click</h2>
+            <p>Gives you +25 cookies every time you click.</p>
+            <p>Level: <span id="goldenClickLevel">0</span></p>
+            <button id="goldenClickButton">
+                Buy - 2500 cookies
+            </button>
+
+        <!-- MEGA CLICKING -->
+
+        <div class="shop-item">
+            <h2>🔥 MEGA Clicking</h2>
+            <p>Gives you +100 cookies every time you click.</p>
+            <p>Level: <span id="megaClickLevel">0</span></p>
+            <button id="megaClickButton">
+                Buy - 10000 cookies
+            </button>
+        </div>
+        </div>
+
     </div>
 
     <script>
+
+        //--------------------
+        //GAME VARIABLES
+        //--------------------
+
         let cookies = 0;
 
         let cookiesPerClick = 1;
 
+        //CPS buildings
+
         let cursors = 0;
         let grandmas = 0;
         let factories = 0;
+        let banks = 0;
+
+        //Building prices
 
         let cursorCost = 10;
         let grandmaCost = 50;
         let factoryCost = 250;
+        let bankCost = 1000;
 
-        let clickUpgradeLevel = 0;
-        let clickUpgradeCost = 100;
+        //CPC upgrades
+
+        let betterClickLevel = 0;
+        let strongerClickLevel = 0;
+        let goldenClickLevel = 0;
+        let megaClickLevel = 0;
+
+        let betterClickCost = 100;
+        let strongerClickCost = 500;
+        let goldenClickCost = 2500;
+        let megaClickCost = 10000;
+
+        //--------------------
+        //HTML ELEMENTS
+        //--------------------
 
         const cookieButton =
             document.getElementById("cookie");
@@ -151,6 +228,11 @@
 
         const stats =
             document.getElementById("stats");
+        
+        const message = 
+            document.getElementById("message");
+
+        //CPS buttons
 
         const cursorButton =
             document.getElementById("cursorButton");
@@ -161,8 +243,34 @@
         const factoryButton =
             document.getElementById("factoryButton");
 
-        const clickUpgradeButton =
-            document.getElementById("clickUpgradeButton");
+        const bankButton =
+            document.getElementById("bankButton");
+
+        //CPC buttons
+
+        const betterClickButton =
+            document.getElementById("betterClickButton");
+
+        const strongerClickButton =
+            document.getElementById("strongerClickButton");
+
+        const goldenClickButton =
+            document.getElementById("goldenClickButton");
+
+        const megaClickButton =
+            document.getElementById("megaClickButton");
+
+        //Save buttons
+
+        const saveButton =
+            document.getElementById("saveButton");
+
+        const loadButton =
+            document.getElementById("loadButton");
+
+        // ======================================== 
+        // COOKIE CLICKING 
+        // ========================================
 
         cookieButton.addEventListener("click", function () {
 
@@ -172,6 +280,10 @@
 
         });
 
+        // ========================================
+        // CURSOR
+        // ========================================
+
         cursorButton.addEventListener("click", function () {
 
             if (cookies >= cursorCost) {
@@ -180,13 +292,15 @@
 
                 cursors++;
 
-                // Make the next cursor more expensive 
-
                 cursorCost = Math.floor(cursorCost * 1.15);
 
                 updateScreen();
             }
         });
+
+        // ======================================== 
+        // COOKIE CLICKING 
+        // ========================================
 
         grandmaButton.addEventListener("click", function () {
 
@@ -201,6 +315,10 @@
                 updateScreen();
             }
         });
+
+        // ========================================
+        // FACTORY
+        // ========================================
 
         factoryButton.addEventListener("click", function () {
 
@@ -217,21 +335,117 @@
 
         });
 
-        clickUpgradeButton.addEventListener("click", function () {
+        // ======================================== 
+        // BANK
+        // ========================================
 
-            if (cookies >= clickUpgradeCost) {
+        bankButton.addEventListener("click", function () {
 
-                cookies -= clickUpgradeCost;
+            if (cookies >= bankCost) {
 
-                clickUpgradeLevel++;
+                cookies -= bankCost;
+
+                banks++;
+
+                bankCost = Math.floor(bankCost * 1.15);
+
+                updateScreen();
+            }
+
+        });
+
+        // ======================================== 
+        // BETTER CLICKING
+        // ========================================
+
+
+        betterClickButton.addEventListener("click", function () {
+
+            if (cookies >= betterClickCost) {
+
+                cookies -= betterClickCost;
+
+                betterClickLevel++;
 
                 cookiesPerClick++;
 
-                clickUpgradeCost = Math.floor(clickUpgradeCost * 2);
+                betterClickCost =
+                    Math.floor(betterClickCost * 1.7);
 
                 updateScreen();
             }
         });
+
+        // ======================================== 
+        // STRONGER CLICKING
+        // ========================================
+
+
+        strongerClickButton.addEventListener("click", function () {
+
+            if (cookies >= strongerClickCost) {
+
+                cookies -= strongerClickCost;
+
+                strongerClickLevel++;
+
+                cookiesPerClick += 5;
+
+                strongerClickCost =
+                    Math.floor(strongerClickCost * 1.8);
+
+                updateScreen();
+            }
+        });
+
+        // ======================================== 
+        // GOLDEN CLICK
+        // ========================================
+
+
+        goldenClickButton.addEventListener("click", function () {
+
+            if (cookies >= goldenClickCost) {
+
+                cookies -= goldenClickCost;
+
+                goldenClickLevel++;
+
+                cookiesPerClick += 25;
+
+                goldenClickCost =
+                    Math.floor(goldenClickCost * 2);
+
+                updateScreen();
+            }
+        });
+
+        // ======================================== 
+        // MEGA CLICK
+        // ========================================
+
+
+        megaClickButton.addEventListener("click", function () {
+
+            if (cookies >= megaClickCost) {
+
+                cookies -= megaClickCost;
+
+                megaClickLevel++;
+
+                cookiesPerClick += 100;
+
+                megaClickCost =
+                    Math.floor(megaClickCost * 2.2);
+
+                updateScreen();
+            }
+        });
+
+        // ======================================== 
+        // AUTOMATIC COOKIES
+        // ========================================
+
 
         setInterval(function () {
 
@@ -244,6 +458,131 @@
 
             updateScreen();
         }, 1000);
+
+        // ======================================== 
+        // SAVE GAME
+        // ========================================
+
+
+        savebutton.addEventListener("click", function () {
+
+            const gameData = {
+                cookies: cookies,
+
+                cookiesPerClick: cookiesPerClick,
+
+                cursors: cursors,
+                grandmas: grandmas,
+                factories: factories,
+                banks: banks,
+
+                cursorCost: cursorCost,
+                grandmaCost: grandmaCost,
+                factoryCost: factoryCost,
+                bankCost: bankCost,
+
+                betterClickLevel: betterClickLevel,
+                strongerClickLevel: strongerClickLevel,
+                goldenClickLevel: goldenClickLevel,
+                megaClickLevel: megaClickLevel,
+
+                betterClickCost: betterClickCost,
+                strongerClickCost: strongerClickCost,
+                goldenClickCost: goldenClickCost,
+                megaClickCost: megaClickCost
+            };
+
+            localStorage.setItem(
+                "cookieGameSave", 
+                JSON.stringify(gameData)
+            );
+
+            message.textContent = 
+            "✅ Game saved!";
+        });
+
+        // ======================================== 
+        // LOAD GAME
+        // ========================================
+
+        loadButton.addEventListener("click", function () {
+
+            const savedData = 
+                localStorage.getItem("cookieGameSave");
+
+            if (savedData) {
+
+                const gameData = 
+                    JSON.parse(savedData);
+
+                cookies = 
+                    gameData.cookies;
+
+                cookiesPerClick = 
+                    gameData.cookiesPerClick;
+
+                cursors = 
+                    gameData.cursors;
+
+                grandmas = 
+                    gameData.grandmas;
+
+                factories = 
+                    gameData.factories;
+
+                banks = 
+                    gameData.banks;
+
+                cursorCost = 
+                    gameData.cursorCost;
+
+                grandmaCost = 
+                    gameData.grandmaCost;
+
+                factoryCost = 
+                    gameData.factoryCost;
+
+                bankCost = 
+                    gameData.bankCost;
+
+                betterClickLevel = 
+                    gameData.betterClickLevel;
+
+                strongerClickLevel = 
+                    gameData.strongerClickLevel;
+
+                goldenClickLevel = 
+                    gameData.goldenClickLevel;
+
+                megaClickLevel = 
+                    gameData.megaClickLevel;
+
+                betterClickCost = 
+                    gameData.betterClickCost;
+
+                strongerClickCost = 
+                    gameData.strongerClickCost;
+
+                goldenClickCost = 
+                    gameData.goldenClickCost;
+
+                megaClickCost = 
+                    gameData.megaClickCost;
+
+                updateScreen();
+
+                message.textContent =
+                    "📂 Game loaded!";
+            } else {
+                message.textContent =
+                    "❌ No saved data found.";
+            }
+        });
+
+
+        // ======================================== 
+        // UPDATE SCREEN
+        // ========================================
 
         function updateScreen() {
 
@@ -262,6 +601,8 @@
                 "Cookies per second: " +
                 cookiesPerSecond;
 
+            //Cursor
+
             document.getElementById("cursorOwned")
                 .textContent = cursors;
 
@@ -269,6 +610,8 @@
                 "Buy — " +
                 cursorCost +
                 " cookies";
+
+            //Grandma
 
             document.getElementById("grandmaOwned")
                 .textContent = grandmas;
@@ -278,6 +621,8 @@
                 grandmaCost +
                 " cookies";
 
+            //Factory
+
             document.getElementById("factoryOwned")
                 .textContent = factories;
 
@@ -285,6 +630,8 @@
                 "Buy — " +
                 factoryCost +
                 " cookies";
+
+            //Click upgrade
 
             document.getElementById("clickUpgradeLevel")
                 .textContent = clickUpgradeLevel;
@@ -294,6 +641,8 @@
                 clickUpgradeCost +
                 " cookies";
 
+            //Disable buttons if we can't afford them
+
             cursorButton.disabled =
                 cookies < cursorCost;
 
@@ -302,6 +651,9 @@
 
             factoryButton.disabled =
                 cookies < factoryCost;
+
+            bankButton.disabled =
+                cookies < bankCost
 
             clickUpgradeButton.disabled =
                 cookies < clickUpgradeCost;
